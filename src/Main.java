@@ -74,11 +74,49 @@ public class Main {
             order.printOrder();
         }
 
+        
+
     }
 
     public static double findDistance(Seller seller, Order order) {
         return Math.sqrt(Math.pow((seller.latitude - order.latitude), 2) + Math.pow((seller.longitude - order.longitude), 2));
     }
     
-    
+    public static void optimizedistance(ArrayList<orders> orders, ArrayList<Seller> sellers){ 
+
+        
+        for(Order o: orders){
+            
+          /*  o.distanceBlue;
+            o.distanceRed;
+            o.distanceGreen;*/
+        
+             double result =  Math.min(o.distanceBlue, Math.min(o.distanceRed, o.distanceGreen);
+            
+             if (result  == o.distanceBlue){
+                for(Seller seller: sellers ) {
+                    if (seller.name.equals("Mavi")){
+                        seller.orderlist.add(o);
+                    }
+                }
+             }
+             if (result  == o.distanceGreen){
+                for(Seller seller: sellers ) {
+                    if (seller.name.equals("Yesil")){
+                        seller.orderlist.add(o);
+                    }
+                }
+             }
+             if (result  == o.distanceRed){
+                for(Seller seller: sellers ) {
+                    if (seller.name.equals("Kirmizi")){
+                        seller.orderlist.add(o);
+                    }
+                }
+             }
+            
+        
+        }
+
+    }
 }
