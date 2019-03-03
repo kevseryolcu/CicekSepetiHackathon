@@ -9,6 +9,7 @@ public class Main {
         ArrayList<Order> orders = new ArrayList<Order>();
         ArrayList<Seller> sellers = new ArrayList<Seller>();
 
+
         String sellerFile = "bayi.csv";
         String orderFile = "siparis.csv";
 
@@ -91,8 +92,8 @@ public class Main {
             o.distanceRed;
             o.distanceGreen;*/
         
-             double result =  Math.min(o.distanceBlue, Math.min(o.distanceRed, o.distanceGreen);
-            
+            double result =  Math.min(o.distanceBlue, Math.min(o.distanceRed, o.distanceGreen);
+                        
              if (result  == o.distanceBlue){
                 for(Seller seller: sellers ) {
                     if (seller.name.equals("Mavi")){
@@ -100,23 +101,194 @@ public class Main {
                     }
                 }
              }
-             if (result  == o.distanceGreen){
+             else if (result  == o.distanceGreen){
                 for(Seller seller: sellers ) {
                     if (seller.name.equals("Yesil")){
                         seller.orderlist.add(o);
                     }
                 }
              }
-             if (result  == o.distanceRed){
+             else if (result  == o.distanceRed){
                 for(Seller seller: sellers ) {
                     if (seller.name.equals("Kirmizi")){
                         seller.orderlist.add(o);
                     }
                 }
-             }
-            
-        
+            }
         }
 
+       fill_quota(sellers);
+       opt_quota(sellers);
+       
+    }
+
+    static void fill_quota(ArrayList<Seller> sellers){
+       
+        for(Seller seller: sellers){
+            while(seller.orderlist.size() < seller.minQuota){
+                double min = 10000;
+                double temp;
+                Order second_min;
+
+                if(seller.name.equals("Kirmizi")){
+                    if(seller[1].orderlist.size() > seller[1].minQuota){
+                        for(Order o : sellers[1].orderlist){
+                            temp = o.distanceGreen - o.distanceRed;
+                            if(min > temp){
+                                min = temp;
+                                second_min = o;
+                            }
+                        }
+                    }
+                    if(seller[2].orderlist.size() > seller[2].minQuota){
+                        for(Order o : sellers[2].orderlist){
+                            temp = o.distanceBlue - o.distanceRed;
+                            if(min > temp){
+                                min = temp;
+                                second_min = o;
+                            }
+                        }
+                    }
+                    sellers[1].orderlist.remove(second_min);
+                    sellers[2].orderlist.remove(second_min);
+                    sellers[0].orderlist.add(second_min);
+                }
+                else if(seller.name.equals("Yesil")){
+                    if(seller[0].orderlist.size() > seller[0].minQuota){
+                        for(Order o : sellers[0].orderlist){
+                            temp = o.distanceBlue - o.distanceGreen;
+                            if(min > temp){
+                                min = temp;
+                                second_min = o;
+                            }
+                        }
+                    }    
+                    if(seller[2].orderlist.size() > seller[2].minQuota){    
+                        for(Order o : sellers[2].orderlist){
+                            temp = o.distanceRed - o.distanceGreen;
+                            if(min > temp){
+                                min = temp;
+                                second_min = o;
+                            }
+                        }
+                    }    
+                    sellers[0].orderlist.remove(second_min);
+                    sellers[2].orderlist.remove(second_min);
+                    sellers[1].orderlist.add(second_min);
+                }
+                else if(seller.name.equals("Mavi")){
+                    if(seller[1].orderlist.size() > seller[1].minQuota){
+                        for(Order o : sellers[1].orderlist){
+                            temp = o.distanceGreen - o.distanceBlue;
+                            if(min > temp){
+                                min = temp;
+                                second_min = o;
+                            }
+                        }
+                    }    
+                    if(seller[0].orderlist.size() > seller[0].minQuota){    
+                        for(Order o : sellers[0].orderlist){
+                            temp = o.distanceRed - o.distanceBlue;
+                            if(min > temp){
+                                min = temp;
+                                second_min = o;
+                            }
+                        }
+                    }    
+                    sellers[1].orderlist.remove(second_min);
+                    sellers[0].orderlist.remove(second_min);
+                    sellers[2].orderlist.add(second_min);
+                }
+            }    
+        }
+    }
+
+    static void opt_quota(ArrayList<Seller> sellers){
+       
+        for(Seller seller: sellers){
+            while(seller.orderlist.size() > seller.maxQuota){
+                double min = 10000;
+                double temp;
+                Order second_min;
+                int flag = 2;
+
+                if(seller.name.equals("Kirmizi")){
+                    for(Order o : sellers[0].orderlist){
+                        temp = o.distanceBlue - o.distanceRed;
+                        if(min > temp){
+                            min = temp;
+                            second_min = o;
+                            flag = 0;
+                        }
+                        temp = o.distanceGreen - o.distanceRed;
+                        if(min > temp){
+                            min = temp;
+                            second_min = o;
+                            flag = 1;
+                        }
+                    }
+                    
+                    sellers[0].orderlist.remove(second_min);
+
+                    if(flag){
+                        sellers[1].orderlist.add(second_min);
+                    }    
+                    else{
+                        sellers[2].orderlist.add(second_min);
+                    }    
+                }
+                else if(seller.name.equals("Yesil")){
+                    for(Order o : sellers[1].orderlist){
+                        temp = o.distanceBlue - o.distanceGreen;
+                        if(min > temp){
+                            min = temp;
+                            second_min = o;
+                            flag = 0;
+                        }
+                        temp = o.distanceRed - o.distanceGreen;
+                        if(min > temp){
+                            min = temp;
+                            second_min = o;
+                            flag = 1;
+                        }
+                    }
+                    
+                    sellers[1].orderlist.remove(second_min);
+
+                    if(flag){
+                        sellers[0].orderlist.add(second_min);
+                    }    
+                    else{
+                        sellers[2].orderlist.add(second_min);
+                    }    
+                }
+                else if(seller.name.equals("Mavi")){
+                    for(Order o : sellers[2].orderlist){
+                        temp = o.distanceRed - o.distanceBlue;
+                        if(min > temp){
+                            min = temp;
+                            second_min = o;
+                            flag = 0;
+                        }
+                        temp = o.distanceGreen - o.distanceBlue;
+                        if(min > temp){
+                            min = temp;
+                            second_min = o;
+                            flag = 1;
+                        }
+                    }
+                    
+                    sellers[2].orderlist.remove(second_min);
+
+                    if(flag){
+                        sellers[1].orderlist.add(second_min);
+                    }    
+                    else{
+                        sellers[0].orderlist.add(second_min);
+                    }    
+                }
+                }
+            }    
+        }
     }
 }
