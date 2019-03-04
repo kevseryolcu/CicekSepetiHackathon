@@ -11,18 +11,18 @@ public class Order {
         this.orderId = orderId;
         this.latitude = latitude;
         this.longitude = longitude;
-        // this.distanceRed = distanceRed;
-        // this.distanceGreen = distanceGreen;
-        // this.distanceBlue = distanceBlue;
+        this.distanceRed = 0;
+        this.distanceGreen = 0;
+        this.distanceBlue = 0;
     }
     public void printOrder() {
         System.out.println(
-                "name: " + orderId
-                        + " latitude: " + latitude
-                        + " longtidute: " + longitude
-                        + " distanceRed " + distanceRed
-                        + " distanceGreen " + distanceGreen
-                        + " distanceBlue " + distanceBlue
+                        "name: " + orderId
+                    + " latitude: " + latitude
+                    + " longtidute: " + longitude
+                    + " distanceRed " + distanceRed
+                    + " distanceGreen " + distanceGreen
+                    + " distanceBlue " + distanceBlue
         );
     }
 }

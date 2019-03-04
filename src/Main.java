@@ -26,7 +26,7 @@ public class Main {
 
                 String line = inputStream.next();
                 String[] data = line.split(";");
-                //System.out.println(line + "***");
+
                 Seller newSeller = new Seller(data[0], Double.parseDouble(data[1]), Double.parseDouble(data[2]));
 
                 if(newSeller.name.equals("Kirmizi")) {
@@ -75,10 +75,6 @@ public class Main {
             e.printStackTrace();
         }
 
-        /*for(Order order: orders) {
-            order.printOrder();
-        }*/
-
         optimizedistance(orders, sellers);
         System.out.println("############################");
         sellers.get(0).printSeller();
@@ -115,11 +111,6 @@ public class Main {
 
 
         for(Order o: orders){
-
-          /*  o.distanceBlue;
-            o.distanceRed;
-            o.distanceGreen;*/
-
             double result =  Math.min(o.distanceBlue, Math.min(o.distanceRed, o.distanceGreen));
 
             if (result  == o.distanceBlue){
@@ -161,7 +152,7 @@ public class Main {
                 if(seller.name.equals("Kirmizi")){
                     if(sellers.get(1).orderlist.size() > sellers.get(1).minQuota){
                         for(Order o : sellers.get(1).orderlist){
-                            temp = o.distanceGreen - o.distanceRed;
+                            temp = Math.abs(o.distanceGreen - o.distanceRed);
                             if(min > temp){
                                 min = temp;
                                 second_min = o;
@@ -170,7 +161,7 @@ public class Main {
                     }
                     if(sellers.get(2).orderlist.size() > sellers.get(2).minQuota){
                         for(Order o : sellers.get(2).orderlist){
-                            temp = o.distanceBlue - o.distanceRed;
+                            temp = Math.abs(o.distanceBlue - o.distanceRed);
                             if(min > temp){
                                 min = temp;
                                 second_min = o;
@@ -184,7 +175,7 @@ public class Main {
                 else if(seller.name.equals("Yesil")){
                     if(sellers.get(0).orderlist.size() > sellers.get(0).minQuota){
                         for(Order o : sellers.get(0).orderlist){
-                            temp = o.distanceBlue - o.distanceGreen;
+                            temp = Math.abs(o.distanceBlue - o.distanceGreen);
                             if(min > temp){
                                 min = temp;
                                 second_min = o;
@@ -193,7 +184,7 @@ public class Main {
                     }
                     if(sellers.get(2).orderlist.size() > sellers.get(2).minQuota){
                         for(Order o : sellers.get(2).orderlist){
-                            temp = o.distanceRed - o.distanceGreen;
+                            temp = Math.abs(o.distanceRed - o.distanceGreen);
                             if(min > temp){
                                 min = temp;
                                 second_min = o;
@@ -207,7 +198,7 @@ public class Main {
                 else if(seller.name.equals("Mavi")){
                     if(sellers.get(1).orderlist.size() > sellers.get(1).minQuota){
                         for(Order o : sellers.get(1).orderlist){
-                            temp = o.distanceGreen - o.distanceBlue;
+                            temp = Math.abs(o.distanceGreen - o.distanceBlue);
                             if(min > temp){
                                 min = temp;
                                 second_min = o;
@@ -216,7 +207,7 @@ public class Main {
                     }
                     if(sellers.get(0).orderlist.size() > sellers.get(0).minQuota){
                         for(Order o : sellers.get(0).orderlist){
-                            temp = o.distanceRed - o.distanceBlue;
+                            temp = Math.abs(o.distanceRed - o.distanceBlue);
                             if(min > temp){
                                 min = temp;
                                 second_min = o;
@@ -242,13 +233,13 @@ public class Main {
 
                 if(seller.name.equals("Kirmizi")){
                     for(Order o : sellers.get(0).orderlist){
-                        temp = o.distanceBlue - o.distanceRed;
+                        temp = Math.abs(o.distanceBlue - o.distanceRed);
                         if(min > temp){
                             min = temp;
                             second_min = o;
                             flag = 0;
                         }
-                        temp = o.distanceGreen - o.distanceRed;
+                        temp = Math.abs(o.distanceGreen - o.distanceRed);
                         if(min > temp){
                             min = temp;
                             second_min = o;
@@ -267,13 +258,13 @@ public class Main {
                 }
                 else if(seller.name.equals("Yesil")){
                     for(Order o : sellers.get(1).orderlist){
-                        temp = o.distanceBlue - o.distanceGreen;
+                        temp = Math.abs(o.distanceBlue - o.distanceGreen);
                         if(min > temp){
                             min = temp;
                             second_min = o;
                             flag = 0;
                         }
-                        temp = o.distanceRed - o.distanceGreen;
+                        temp = Math.abs(o.distanceRed - o.distanceGreen);
                         if(min > temp){
                             min = temp;
                             second_min = o;
@@ -292,13 +283,13 @@ public class Main {
                 }
                 else if(seller.name.equals("Mavi")){
                     for(Order o : sellers.get(2).orderlist){
-                        temp = o.distanceRed - o.distanceBlue;
+                        temp = Math.abs(o.distanceRed - o.distanceBlue);
                         if(min > temp){
                             min = temp;
                             second_min = o;
                             flag = 0;
                         }
-                        temp = o.distanceGreen - o.distanceBlue;
+                        temp = Math.abs(o.distanceGreen - o.distanceBlue);
                         if(min > temp){
                             min = temp;
                             second_min = o;
