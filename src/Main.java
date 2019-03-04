@@ -1,11 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import  java.awt.Desktop;
+import java.net.URI;
+
 public class Main {
-    public static void main(String [] args)
-    {
+    public static void main(String [] args) throws IOException, URISyntaxException {
         ArrayList<Order> orders = new ArrayList<Order>();
         ArrayList<Seller> sellers = new ArrayList<Seller>();
 
@@ -63,7 +67,7 @@ public class Main {
                 newOrder.distanceBlue = findDistance(sellers.get(2), newOrder );
 
                 orders.add(newOrder);
-             
+
 
             }
             inputStream.close();
@@ -95,38 +99,44 @@ public class Main {
         }
 
         printOptimumDistances(sellers);
+        displayMap();
+
+    }
+    public static void displayMap() throws URISyntaxException, IOException {
+        Desktop d = Desktop.getDesktop();
+        d.browse(new URI("https://www.google.com/maps/d/u/0/viewer?hl=tr&mid=13o-td513WZiKJrIJHgI-eyL-raaJYGsi&ll=41.06724490576909%2C29.01614500000005&z=13"));
     }
 
     public static double findDistance(Seller seller, Order order) {
         return Math.sqrt(Math.pow((seller.latitude - order.latitude), 2) + Math.pow((seller.longitude - order.longitude), 2));
     }
-    
+
     public static void optimizedistance(ArrayList<Order> orders, ArrayList<Seller> sellers){
 
-        
+
         for(Order o: orders){
-            
+
           /*  o.distanceBlue;
             o.distanceRed;
             o.distanceGreen;*/
-        
+
             double result =  Math.min(o.distanceBlue, Math.min(o.distanceRed, o.distanceGreen));
-                        
-             if (result  == o.distanceBlue){
+
+            if (result  == o.distanceBlue){
                 for(Seller seller: sellers ) {
                     if (seller.name.equals("Mavi")){
                         seller.orderlist.add(o);
                     }
                 }
-             }
-             else if (result  == o.distanceGreen){
+            }
+            else if (result  == o.distanceGreen){
                 for(Seller seller: sellers ) {
                     if (seller.name.equals("Yesil")){
                         seller.orderlist.add(o);
                     }
                 }
-             }
-             else if (result  == o.distanceRed){
+            }
+            else if (result  == o.distanceRed){
                 for(Seller seller: sellers ) {
                     if (seller.name.equals("Kirmizi")){
                         seller.orderlist.add(o);
@@ -135,13 +145,13 @@ public class Main {
             }
         }
 
-       fill_quota(sellers);
-       opt_quota(sellers);
-       
+        fill_quota(sellers);
+        opt_quota(sellers);
+
     }
 
     public static void fill_quota(ArrayList<Seller> sellers){
-       
+
         for(Seller seller: sellers){
             while(seller.orderlist.size() < seller.minQuota){
                 double min = 10000;
@@ -180,8 +190,8 @@ public class Main {
                                 second_min = o;
                             }
                         }
-                    }    
-                    if(sellers.get(2).orderlist.size() > sellers.get(2).minQuota){    
+                    }
+                    if(sellers.get(2).orderlist.size() > sellers.get(2).minQuota){
                         for(Order o : sellers.get(2).orderlist){
                             temp = o.distanceRed - o.distanceGreen;
                             if(min > temp){
@@ -189,7 +199,7 @@ public class Main {
                                 second_min = o;
                             }
                         }
-                    }    
+                    }
                     sellers.get(0).orderlist.remove(second_min);
                     sellers.get(2).orderlist.remove(second_min);
                     sellers.get(1).orderlist.add(second_min);
@@ -203,8 +213,8 @@ public class Main {
                                 second_min = o;
                             }
                         }
-                    }    
-                    if(sellers.get(0).orderlist.size() > sellers.get(0).minQuota){    
+                    }
+                    if(sellers.get(0).orderlist.size() > sellers.get(0).minQuota){
                         for(Order o : sellers.get(0).orderlist){
                             temp = o.distanceRed - o.distanceBlue;
                             if(min > temp){
@@ -212,17 +222,17 @@ public class Main {
                                 second_min = o;
                             }
                         }
-                    }    
+                    }
                     sellers.get(1).orderlist.remove(second_min);
                     sellers.get(0).orderlist.remove(second_min);
                     sellers.get(2).orderlist.add(second_min);
                 }
-            }    
+            }
         }
     }
 
     public static void opt_quota(ArrayList<Seller> sellers){
-       
+
         for(Seller seller: sellers){
             while(seller.orderlist.size() > seller.maxQuota){
                 double min = 10000;
@@ -245,15 +255,15 @@ public class Main {
                             flag = 1;
                         }
                     }
-                    
+
                     sellers.get(0).orderlist.remove(second_min);
 
                     if(flag == 1){
                         sellers.get(1).orderlist.add(second_min);
-                    }    
+                    }
                     else{
                         sellers.get(2).orderlist.add(second_min);
-                    }    
+                    }
                 }
                 else if(seller.name.equals("Yesil")){
                     for(Order o : sellers.get(1).orderlist){
@@ -270,15 +280,15 @@ public class Main {
                             flag = 1;
                         }
                     }
-                    
+
                     sellers.get(1).orderlist.remove(second_min);
 
                     if(flag == 1){
                         sellers.get(0).orderlist.add(second_min);
-                    }    
+                    }
                     else{
                         sellers.get(2).orderlist.add(second_min);
-                    }    
+                    }
                 }
                 else if(seller.name.equals("Mavi")){
                     for(Order o : sellers.get(2).orderlist){
@@ -295,15 +305,15 @@ public class Main {
                             flag = 1;
                         }
                     }
-                    
+
                     sellers.get(2).orderlist.remove(second_min);
 
                     if(flag == 1){
                         sellers.get(1).orderlist.add(second_min);
-                    }    
+                    }
                     else{
                         sellers.get(0).orderlist.add(second_min);
-                    }    
+                    }
                 }
             }
         }

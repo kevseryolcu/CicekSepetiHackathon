@@ -5,7 +5,7 @@ public class Order {
     public double distanceRed;
     public double distanceGreen;
     public double distanceBlue;
-    
+
 
     public Order (int orderId, double latitude, double longitude)  {
         this.orderId = orderId;
@@ -17,12 +17,12 @@ public class Order {
     }
     public void printOrder() {
         System.out.println(
-        "name: " + orderId
-        + " latitude: " + latitude 
-        + " longtidute: " + longitude 
-        + " distanceRed " + distanceRed
-        + " distanceGreen " + distanceGreen
-        + " distanceBlue " + distanceBlue
-        );    
+                "name: " + orderId
+                        + " latitude: " + latitude
+                        + " longtidute: " + longitude
+                        + " distanceRed " + distanceRed
+                        + " distanceGreen " + distanceGreen
+                        + " distanceBlue " + distanceBlue
+        );
     }
 }

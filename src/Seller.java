@@ -15,7 +15,7 @@ public class Seller {
         this.longitude = longitude;
     }
     public void printSeller() {
-        System.out.println("name: " + name + " latitude: " + latitude + " longitude: " + longitude);    
+        System.out.println("name: " + name + " latitude: " + latitude + " longitude: " + longitude);
     }
 
 }
